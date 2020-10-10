@@ -1,18 +1,32 @@
-# PostCSS Flex Transform
+# PostCSS Flex Item
 
-[PostCSS] plugin flex.
+[PostCSS] plugin separate the flex child element style into a selector.
 
-[PostCSS]: https://github.com/postcss/postcss
+将 flex 子元素样式分为选择器。
+
+[postcss]: https://github.com/postcss/postcss
 
 ```css
 .foo {
-    /* Input example */
+  color: red;
+  felx: 1;
 }
 ```
 
 ```css
 .foo {
-  /* Output example */
+  color: red;
+}
+.fooFlex {
+  felx: 1;
+}
+```
+
+## Options
+
+```js
+{
+  suffix: 'Flex'; // 子元素样式后缀
 }
 ```
 
@@ -21,7 +35,7 @@
 **Step 1:** Install plugin:
 
 ```sh
-npm install --save-dev postcss postcss-flex-transform
+npm install --save-dev postcss postcss-flex-item
 ```
 
 **Step 2:** Check you project for existed PostCSS config: `postcss.config.js`
@@ -36,7 +50,7 @@ and set this plugin in settings.
 ```diff
 module.exports = {
   plugins: [
-+   require('postcss-flex-transform'),
++   require('postcss-flex-item', { suffix: 'Flex' }),
     require('autoprefixer')
   ]
 }

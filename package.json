@@ -1,7 +1,7 @@
 {
-  "name": "postcss-flex-transform",
+  "name": "postcss-flex-item",
   "version": "0.0.0",
-  "description": "PostCSS plugin flex",
+  "description": "PostCSS plugin separate the flex child element style into a selector",
   "keywords": [
     "postcss",
     "css",
@@ -9,11 +9,11 @@
     "flex"
   ],
   "scripts": {
-    "test": "jest-ci --coverage && eslint-ci ."
+    "test": "jest-ci --coverage"
   },
   "author": "noyobo <noyobo@gmail.com>",
   "license": "MIT",
-  "repository": "noyobo/postcss-flex-transform",
+  "repository": "noyobo/postcss-flex-item",
   "engines": {
     "node": ">=10.0.0"
   },
@@ -21,16 +21,15 @@
     "postcss": "^8.1.0"
   },
   "devDependencies": {
-    "clean-publish": "^1.1.8",
+    "postcss": "^8.1.1",
     "eslint": "^7.10.0",
-    "eslint-ci": "^1.0.0",
     "eslint-plugin-jest": "^24.0.2",
+    "fs-extra": "^9.0.1",
     "husky": "^4.3.0",
     "jest": "^26.4.2",
     "jest-ci": "^0.1.1",
     "jest-cli": "^26.4.2",
-    "lint-staged": "^10.4.0",
-    "postcss": "^8.1.0"
+    "lint-staged": "^10.4.0"
   },
   "husky": {
     "hooks": {
@@ -38,7 +37,7 @@
     }
   },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js": "prettier --write"
   },
   "eslintConfig": {
     "parserOptions": {

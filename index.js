@@ -1,28 +1,46 @@
-module.exports = (opts = { }) => {
-
-  // Work with options here
-
+module.exports = (opts) => {
+  const optoins = Object.assign({ suffix: 'Flex' }, opts || {});
   return {
-    postcssPlugin: 'postcss-flex-transform',
-    /*
-    Root (root, postcss) {
-      // Transform CSS AST here
-    }
-    */
+    postcssPlugin: 'postcss-flex-item',
+    prepare() {
+      const flexSelectors = new Map();
+      function processFlexChild(decl, { Rule }) {
+        const { selector } = decl.parent;
+        let rule;
+        if (flexSelectors.has(selector)) {
+          rule = flexSelectors.get(selector);
+        } else {
+          rule = new Rule({
+            selector: selector + optoins.suffix,
+          });
 
-    /*
-    Declaration (decl, postcss) {
-      // The faster way to find Declaration node
-    }
-    */
+          flexSelectors.set(selector, rule);
+        }
 
-    /*
-    Declaration: {
-      color: (decl, postcss) {
-        // The fastest way find Declaration node if you know property name
+        rule.append({
+          prop: decl.prop,
+          value: decl.value,
+          source: decl.source,
+        });
+
+        decl.remove();
       }
-    }
-    */
-  }
-}
-module.exports.postcss = true
+
+      return {
+        OnceExit(root) {
+          flexSelectors.forEach((rule) => {
+            root.append(rule);
+          });
+        },
+        Declaration: {
+          flex: processFlexChild,
+          order: processFlexChild,
+          'flex-basis': processFlexChild,
+          'flex-grow': processFlexChild,
+          'flex-shrink': processFlexChild,
+        },
+      };
+    },
+  };
+};
+module.exports.postcss = true;
