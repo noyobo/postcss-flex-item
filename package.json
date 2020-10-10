@@ -1,6 +1,6 @@
 {
   "name": "postcss-flex-item",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "PostCSS plugin separate the flex child element style into a selector",
   "keywords": [
     "postcss",
