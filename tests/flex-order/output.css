@@ -1,0 +1,7 @@
+.a {
+  width: 100px;
+}
+.aFlex {
+  flex: 1;
+  order: 1;
+}
