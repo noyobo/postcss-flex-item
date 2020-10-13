@@ -1,7 +1,12 @@
 .flex_a {
   flex: 1;
-  order: 1;
 }
 .a {
+  width: 100px;
+}
+.flex_b {
+  flex: 2;
+}
+.b {
   width: 100px;
 }

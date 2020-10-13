@@ -22,6 +22,11 @@
 }
 ```
 
+## Required
+
+- `postcss@^7.0.0`
+- `postcss-loader@^3.0.0`
+
 ## Options
 
 ```js

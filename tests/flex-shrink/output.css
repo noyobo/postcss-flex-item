@@ -1,6 +1,6 @@
-.a {
-  width: 100px;
-}
 .flex_a {
   flex-shrink: 1;
+}
+.a {
+  width: 100px;
 }

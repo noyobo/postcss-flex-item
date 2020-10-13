@@ -1,48 +1,35 @@
-module.exports = (opts) => {
-  const optoins = Object.assign({ prefix: 'flex_' }, opts || {});
-  return {
-    postcssPlugin: 'postcss-flex-item',
-    prepare() {
-      const flexSelectors = new Map();
-      function processFlexChild(decl, { Rule }) {
-        const { selector } = decl.parent;
-        let rule;
-        if (flexSelectors.has(selector)) {
-          rule = flexSelectors.get(selector);
-        } else {
-          rule = new Rule({
-            selector: selector.replace(/([^.]+)$/, function (str, ident) {
-              return optoins.prefix + ident;
-            }),
-          });
+const postcss = require('postcss');
 
-          flexSelectors.set(selector, rule);
+module.exports = postcss.plugin('postcss-flex-item', function (opts) {
+  const optoins = Object.assign({ prefix: 'flex_' }, opts);
+
+  function processFlexChild(decl, flexRule) {
+    flexRule.append({
+      prop: decl.prop,
+      value: decl.value,
+      source: decl.source,
+    });
+
+    decl.remove();
+  }
+
+  return function (root) {
+    root.walkRules((rule) => {
+      let hasFlex = false;
+      let flexRule = new postcss.rule({
+        selector: rule.selector.replace(/([^.]+)$/, function (str, ident) {
+          return optoins.prefix + ident;
+        }),
+      });
+      rule.walkDecls((decl) => {
+        if (['flex', 'order', 'flex-basis', 'flex-grow', 'flex-shrink'].includes(decl.prop)) {
+          hasFlex = true;
+          processFlexChild(decl, flexRule);
         }
-
-        rule.append({
-          prop: decl.prop,
-          value: decl.value,
-          source: decl.source,
-        });
-
-        decl.remove();
+      });
+      if (hasFlex) {
+        rule.before(flexRule);
       }
-
-      return {
-        OnceExit(root) {
-          flexSelectors.forEach((rule) => {
-            root.append(rule);
-          });
-        },
-        Declaration: {
-          flex: processFlexChild,
-          order: processFlexChild,
-          'flex-basis': processFlexChild,
-          'flex-grow': processFlexChild,
-          'flex-shrink': processFlexChild,
-        },
-      };
-    },
+    });
   };
-};
-module.exports.postcss = true;
+});

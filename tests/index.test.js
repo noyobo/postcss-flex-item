@@ -20,9 +20,11 @@ async function run(dir) {
   expect(result.warnings()).toHaveLength(0);
 }
 
-const features = readdirSync(__dirname).filter((d) => {
-  return statSync(path.join(__dirname, d)).isDirectory();
-});
+const features = readdirSync(__dirname)
+  // .filter((d) => d === 'flex-mutil')
+  .filter((d) => {
+    return statSync(path.join(__dirname, d)).isDirectory();
+  });
 
 features.forEach((dir) => {
   it(`Test case: ${dir}`, async () => {
