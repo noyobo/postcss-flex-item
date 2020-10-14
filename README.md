@@ -32,6 +32,9 @@
 ```js
 {
   prefix: 'flex_'; // 子元素样式前缀
+  validSelector: function (rule.selector) { // 有效的选择器
+    return true; // 返回 false 则不处理
+  }
 }
 ```
 

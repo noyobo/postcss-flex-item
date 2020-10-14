@@ -1,7 +1,15 @@
 const postcss = require('postcss');
 
 module.exports = postcss.plugin('postcss-flex-item', function (opts) {
-  const optoins = Object.assign({ prefix: 'flex_' }, opts);
+  const optoins = Object.assign(
+    {
+      prefix: 'flex_',
+      validSelector: function () {
+        return true;
+      },
+    },
+    opts
+  );
 
   function processFlexChild(decl, flexRule) {
     flexRule.append({
@@ -15,20 +23,23 @@ module.exports = postcss.plugin('postcss-flex-item', function (opts) {
 
   return function (root) {
     root.walkRules((rule) => {
-      let hasFlex = false;
-      let flexRule = new postcss.rule({
-        selector: rule.selector.replace(/([^.]+)$/, function (str, ident) {
-          return optoins.prefix + ident;
-        }),
-      });
-      rule.walkDecls((decl) => {
-        if (['flex', 'order', 'flex-basis', 'flex-grow', 'flex-shrink'].includes(decl.prop)) {
-          hasFlex = true;
-          processFlexChild(decl, flexRule);
+      const selector = rule.selector;
+      if (optoins.validSelector(selector)) {
+        let hasFlex = false;
+        let flexRule = new postcss.rule({
+          selector: selector.replace(/([^.]+)$/, function (str, ident) {
+            return optoins.prefix + ident;
+          }),
+        });
+        rule.walkDecls((decl) => {
+          if (['flex', 'order', 'flex-basis', 'flex-grow', 'flex-shrink'].includes(decl.prop)) {
+            hasFlex = true;
+            processFlexChild(decl, flexRule);
+          }
+        });
+        if (hasFlex) {
+          rule.before(flexRule);
         }
-      });
-      if (hasFlex) {
-        rule.before(flexRule);
       }
     });
   };
