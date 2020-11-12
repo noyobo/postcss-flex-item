@@ -9,7 +9,7 @@
 ```css
 .foo {
   color: red;
-  felx: 1;
+  flex: 1;
 }
 ```
 
@@ -18,7 +18,7 @@
   color: red;
 }
 .flex_foo {
-  felx: 1;
+  flex: 1;
 }
 ```
 
