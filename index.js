@@ -7,6 +7,7 @@ module.exports = postcss.plugin('postcss-flex-item', function (opts) {
       validSelector: function () {
         return true;
       },
+      properties: ['flex', 'order', 'flex-basis', 'flex-grow', 'flex-shrink'],
     },
     opts
   );
@@ -32,7 +33,7 @@ module.exports = postcss.plugin('postcss-flex-item', function (opts) {
           }),
         });
         rule.walkDecls((decl) => {
-          if (['flex', 'order', 'flex-basis', 'flex-grow', 'flex-shrink'].includes(decl.prop)) {
+          if (optoins.properties.includes(decl.prop)) {
             hasFlex = true;
             processFlexChild(decl, flexRule);
           }
