@@ -1,5 +1,17 @@
 # PostCSS Flex Item
 
+<p class="badges">
+	<a href="https://github.com/noyobo/postcss-flex-item/actions?workflow=Node+CI">
+		<img src="https://github.com/noyobo/postcss-flex-item/workflows/Build%20&%20Test/badge.svg" alt="CI build status" />
+	</a>
+	<a href="https://codecov.io/gh/noyobo/postcss-flex-item">
+		<img src="https://img.shields.io/codecov/c/github/noyobo/postcss-flex-item/1.x.svg" alt="Codecov" />
+	</a>
+	<a href="https://www.npmjs.com/package/postcss-flex-item">
+		<img alt="npm" src="https://img.shields.io/npm/v/postcss-flex-item" />
+	</a>
+</p>
+
 [PostCSS] plugin separate the flex child element style into a selector.
 
 将 flex 子元素样式分为选择器。
