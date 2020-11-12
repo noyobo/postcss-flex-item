@@ -1,5 +1,5 @@
 module.exports = (opts) => {
-  const optoins = Object.assign({ suffix: 'Flex' }, opts || {});
+  const optoins = Object.assign({ prefix: 'flex_' }, opts || {});
   return {
     postcssPlugin: 'postcss-flex-item',
     prepare() {
@@ -11,7 +11,9 @@ module.exports = (opts) => {
           rule = flexSelectors.get(selector);
         } else {
           rule = new Rule({
-            selector: selector + optoins.suffix,
+            selector: selector.replace(/([^.]+)$/, function (str, ident) {
+              return optoins.prefix + ident;
+            }),
           });
 
           flexSelectors.set(selector, rule);

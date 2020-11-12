@@ -17,7 +17,7 @@
 .foo {
   color: red;
 }
-.fooFlex {
+.flex_foo {
   flex: 1;
 }
 ```
@@ -26,7 +26,7 @@
 
 ```js
 {
-  suffix: 'Flex'; // 子元素样式后缀
+  prefix: 'flex_'; // 子元素样式前缀
 }
 ```
 
@@ -50,7 +50,7 @@ and set this plugin in settings.
 ```diff
 module.exports = {
   plugins: [
-+   require('postcss-flex-item', { suffix: 'Flex' }),
++   require('postcss-flex-item', { prefix: 'flex_' }),
     require('autoprefixer')
   ]
 }
