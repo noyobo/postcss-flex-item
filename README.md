@@ -1,8 +1,8 @@
 # PostCSS Flex Item
 
 <p class="badges">
-	<a href="https://github.com/noyobo/postcss-flex-item/actions?workflow=Node+CI">
-		<img src="https://github.com/noyobo/postcss-flex-item/workflows/Build%20&%20Test/badge.svg" alt="CI build status" />
+	<a href="https://github.com/noyobo/postcss-flex-item/actions?workflow=Node.js+CI">
+		<img src="https://github.com/noyobo/postcss-flex-item/workflows/Node.js%20CI/badge.svg" alt="CI build status" />
 	</a>
 	<a href="https://codecov.io/gh/noyobo/postcss-flex-item">
 		<img src="https://img.shields.io/codecov/c/github/noyobo/postcss-flex-item/1.x.svg" alt="Codecov" />
